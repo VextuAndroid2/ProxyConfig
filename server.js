@@ -64,9 +64,9 @@ app.use((req, res) => {
     const IP_LOCAL = "190.107.209.205"; 
     
     if (clientIp !== MI_IP && clientIp !== IP_LOCAL && !clientIp.includes(IP_LOCAL)) {
-         console.log(`❌ IP RECHAZADA: ${clientIp} (Esperaba: ${MI_IP} o ${IP_LOCAL})`);
-         res.status(403).send("Unauthorized Ip");
-         return;
+         //console.log(`❌ IP RECHAZADA: ${clientIp} (Esperaba: ${MI_IP} o ${IP_LOCAL})`);
+         //res.status(403).send("Unauthorized Ip");
+         //return;
     }
     console.log("✅ IP Autorizada");
 }
