@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Tu IP actual (cámbiala si cambia)
-const MI_IP = "190.107.209.206";
+const MI_IP = "190.107.209.205";
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
