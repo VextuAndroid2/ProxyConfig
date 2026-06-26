@@ -47,7 +47,7 @@ const sendResponse = (req, res) => {
         "hs_config": { "nome": "HS PESCOÇO", "porta": 3000 },
         "img_cdn_url": "https://dl.cdn.freefiremobile.com/common/",
         "is_firewall_open": true,
-        "is_review_server": false,
+        "is_review_server": true,
         "is_server_open": true,
         "latest_release_version": "OB54",
         "login_download_optionalpack": "optionalclothres:shaders|optionalpetres:optionalpetres_commonab_shader",
@@ -82,7 +82,7 @@ const sendResponse = (req, res) => {
 app.all('/', sendResponse);
 
 app.use((req, res) => {
-    res.status(503).end();
+    //res.status(503).end();
 });
 
 app.listen(PORT, '0.0.0.0', () => {
