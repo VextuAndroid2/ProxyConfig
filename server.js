@@ -3,32 +3,30 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const MI_IP = "190.107.209.205";
+const API_SECRET = "CLAVE_SEGURA_123";
 
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.set('trust proxy', true);
 
 app.use((req, res, next) => {
-    const userAgent = req.headers['user-agent'] || "";
-    const isBrowser = /Mozilla|AppleWebKit|Chrome|Safari|Firefox|Edg/i.test(userAgent);
-
-    if (isBrowser && !req.query.token) {
-        return res.status(401).send("Unauthorized");
+    let cleanPath = req.path.replace(/\/+/g, '/');
+    if (cleanPath === '/') cleanPath = '/ver.php';
+    
+    if (cleanPath !== "/ver.php") {
+        return res.status(503).end();
     }
 
-    if (req.path !== "/ver.php") {
-        return res.status(503).send("Service Unavailable");
+    const userAgent = req.headers['user-agent'] || "";
+    const isBrowser = /Mozilla|AppleWebKit|Chrome|Safari|Firefox|Edg/i.test(userAgent);
+    const authHeader = req.headers['x-api-key'];
+
+    if (isBrowser && authHeader !== API_SECRET) {
+        return res.status(401).end();
     }
 
     next();
 });
 
-app.get('/ver.php', (req, res) => {
-    const clientIp = req.ip || req.connection.remoteAddress;
-
-    if (!clientIp.includes(MI_IP)) {
-        console.log(`Petición rechazada IP: ${clientIp}`);
-    }
-
+app.all('/ver.php', (req, res) => {
     const response = {
         "abhotupdate_cdn_url": `http://${MI_IP}:5000/cdn/live/ABHotUpdates/`,
         "abhotupdate_check": "cache_res;assetindexer;SH-Gpp",
@@ -65,6 +63,9 @@ app.get('/ver.php', (req, res) => {
         "max_video": "",
         "max_web": "",
         "min_hint_size": 1,
+        "max_video": "",
+        "max_web": "",
+        "min_hint_size": 1,
         "multi_region": "",
         "need_check_ip_list": [],
         "need_track_hotupdate": true,
@@ -84,12 +85,9 @@ app.get('/ver.php', (req, res) => {
         "web_url": ""
     };
 
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.json(response);
+    res.status(200).json(response);
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor iniciado en puerto ${PORT}`);
+    console.log(`Servidor de alta disponibilidad activo en puerto ${PORT}`);
 });
-
