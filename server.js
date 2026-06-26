@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Tu IP actual (cámbiala si cambia)
 const MI_IP = "190.107.209.206";
