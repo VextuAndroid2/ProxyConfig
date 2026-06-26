@@ -7,34 +7,6 @@ const API_SECRET = "VEXTUPROXY11";
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
-
-app.use((req, res, next) => {
-    const now = new Date().toISOString();
-    console.log("\n========== REQUEST ==========");
-    console.log("Hora:", now);
-    console.log("IP:", req.ip || req.socket.remoteAddress);
-    console.log("Método:", req.method);
-    console.log("URL:", req.originalUrl);
-    console.log("Path:", req.path);
-    next();
-});
-
-app.use((req, res, next) => {
-    const send = res.send;
-    const json = res.json;
-    res.send = function(data) {
-        console.log("===== RESPONSE SEND =====");
-        console.log(data);
-        return send.call(this, data);
-    };
-    res.json = function(data) {
-        console.log("===== RESPONSE JSON =====");
-        console.log(JSON.stringify(data, null, 2));
-        return json.call(this, data);
-    };
-    next();
-});
-
 const handleRequest = (req, res) => {
     const now = new Date().toLocaleTimeString();
     const clientIp = req.ip || req.connection.remoteAddress;
@@ -47,10 +19,7 @@ const handleRequest = (req, res) => {
     if (isBrowser && authHeader !== API_SECRET) {
         return res.status(401).end();
     }
-    next();
-    
     console.log(`\n[${now}] PETICIÓN → ${req.method} ${fullUrl}`);
-
     const uid = req.query.uid || req.query.user_id || req.query.id || "No UID";
     console.log("🔑 UID:", uid);
 
@@ -94,7 +63,7 @@ const handleRequest = (req, res) => {
         "gop_url": "",
         "hs_config": { "nome": "HS PESCOÇO", "porta": 3000 },
         "img_cdn_url": "https://dl.cdn.freefiremobile.com/common/",
-        "is_firewall_open": true,
+        "is_firewall_open": false,
         "is_review_server": true,
         "is_server_open": true,
         "latest_release_version": "OB54",
