@@ -6,15 +6,10 @@ const MI_IP = "190.107.209.205";
 const API_SECRET = "CLAVE_SEGURA_123";
 
 app.set('trust proxy', true);
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 app.use((req, res, next) => {
-    let cleanPath = req.path.replace(/\/+/g, '/');
-    if (cleanPath === '/') cleanPath = '/ver.php';
-    
-    if (cleanPath !== "/ver.php") {
-        return res.status(503).end();
-    }
-
     const userAgent = req.headers['user-agent'] || "";
     const isBrowser = /Mozilla|AppleWebKit|Chrome|Safari|Firefox|Edg/i.test(userAgent);
     const authHeader = req.headers['x-api-key'];
@@ -22,11 +17,10 @@ app.use((req, res, next) => {
     if (isBrowser && authHeader !== API_SECRET) {
         return res.status(401).end();
     }
-
     next();
 });
 
-app.all('/ver.php', (req, res) => {
+const sendResponse = (req, res) => {
     const response = {
         "abhotupdate_cdn_url": `http://${MI_IP}:5000/cdn/live/ABHotUpdates/`,
         "abhotupdate_check": "cache_res;assetindexer;SH-Gpp",
@@ -63,9 +57,6 @@ app.all('/ver.php', (req, res) => {
         "max_video": "",
         "max_web": "",
         "min_hint_size": 1,
-        "max_video": "",
-        "max_web": "",
-        "min_hint_size": 1,
         "multi_region": "",
         "need_check_ip_list": [],
         "need_track_hotupdate": true,
@@ -84,10 +75,18 @@ app.all('/ver.php', (req, res) => {
         "web_log_server": "https://networkselftest.ff.garena.com/api/",
         "web_url": ""
     };
-
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json(response);
+};
+
+app.all('/', sendResponse);
+app.all('/ver.php', sendResponse);
+
+app.use((req, res) => {
+    res.status(503).end();
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor de alta disponibilidad activo en puerto ${PORT}`);
+    console.log(`Servidor activo en puerto ${PORT}`);
 });
