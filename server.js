@@ -54,6 +54,10 @@ app.use((req, res) => {
     const now = new Date().toLocaleTimeString();
     const clientIp = req.ip || req.connection.remoteAddress;
     const fullUrl = req.url;
+
+    if (!req.path.endsWith("/ver.php")) {
+    return res.status(204).end(); // Sin contenido
+    }
     
     console.log(`\n[${now}] PETICIÓN → ${req.method} ${fullUrl}`);
 
