@@ -57,6 +57,7 @@ app.use((req, res) => {
 
     if (!req.path.endsWith("/ver.php")) {
     return res.status(204).end(); // Sin contenido
+        return;
     }
     
     console.log(`\n[${now}] PETICIÓN → ${req.method} ${fullUrl}`);
