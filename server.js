@@ -71,13 +71,13 @@ app.use((req, res) => {
     console.log("✅ IP Autorizada");
 }
     // === BLOQUEO DE LOGIN ===
-    if (fullUrl.includes('login') || fullUrl.includes('auth') || fullUrl.includes('guest') || 
+    if (fullUrl.includes('login') || fullUrl.includes('auth') || fullUrl.includes('lobby') || 
         fullUrl.includes('facebook') || fullUrl.includes('account') || fullUrl.includes('server_url')) {
         
         console.log("🚫 LOGIN DETECTADO → Bloqueando con 403");
         res.status(403).json({
             "status": "error",
-            "code": 403,
+            "code": 503,
             "message": "Login bloqueado por Proxy de Prueba"
         });
         return;
@@ -117,7 +117,7 @@ app.use((req, res) => {
         "hs_config":{"nome":"HS PESCOÇO","porta":3000},
         "img_cdn_url":"https://dl.cdn.freefiremobile.com/common/",
         "is_firewall_open":true,
-        "is_review_server":true,
+        "is_review_server":false,
         "is_server_open":true,
         "latest_release_version":"OB54",
         "login_download_optionalpack":"optionalclothres:shaders|optionalpetres:optionalpetres_commonab_shader|optionallobbyres:",
