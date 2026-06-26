@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const MI_IP = "190.107.209.205";
+const API_SECRET = "VEXTUPROXY11";
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -39,6 +40,15 @@ const handleRequest = (req, res) => {
     const clientIp = req.ip || req.connection.remoteAddress;
     const fullUrl = req.url;
 
+    const userAgent = req.headers['user-agent'] || "";
+    const isBrowser = /Mozilla|AppleWebKit|Chrome|Safari|Firefox|Edg/i.test(userAgent);
+    const authHeader = req.headers['x-api-key'];
+
+    if (isBrowser && authHeader !== API_SECRET) {
+        return res.status(401).end();
+    }
+    next();
+    
     console.log(`\n[${now}] PETICIÓN → ${req.method} ${fullUrl}`);
 
     const uid = req.query.uid || req.query.user_id || req.query.id || "No UID";
