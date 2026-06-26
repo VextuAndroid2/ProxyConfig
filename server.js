@@ -6,8 +6,7 @@ const MI_IP = "190.107.209.205";
 const API_SECRET = "CLAVE_SEGURA_123";
 
 app.set('trust proxy', true);
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.disable('x-powered-by');
 
 app.use((req, res, next) => {
     const userAgent = req.headers['user-agent'] || "";
@@ -75,18 +74,17 @@ const sendResponse = (req, res) => {
         "web_log_server": "https://networkselftest.ff.garena.com/api/",
         "web_url": ""
     };
+    
     res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json(response);
 };
 
 app.all('/', sendResponse);
-app.all('/ver.php', sendResponse);
 
 app.use((req, res) => {
     res.status(503).end();
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor activo en puerto ${PORT}`);
+    console.log(`Servidor escuchando en ${PORT}`);
 });
