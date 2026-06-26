@@ -61,7 +61,7 @@ app.use((req, res) => {
     console.log("✅ Petición (/ver.php) detectada");
     
     // Permitir tanto la pública como la local (ajusta la local a la tuya)
-    const IP_LOCAL = "192.168.100.3"; 
+    const IP_LOCAL = "190.107.209.205"; 
     
     if (clientIp !== MI_IP && clientIp !== IP_LOCAL && !clientIp.includes(IP_LOCAL)) {
          console.log(`❌ IP RECHAZADA: ${clientIp} (Esperaba: ${MI_IP} o ${IP_LOCAL})`);
