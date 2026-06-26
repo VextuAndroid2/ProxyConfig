@@ -27,6 +27,10 @@ app.use((req, res, next) => {
     next();
 });
 
+if (!req.path.endsWith("/ver.php")) {
+    return res.status(204).end(); // Sin contenido
+}
+
 app.use((req, res, next) => {
     const send = res.send;
     const json = res.json;
