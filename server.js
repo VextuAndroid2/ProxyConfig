@@ -65,7 +65,7 @@ const handleRequest = (req, res) => {
         "is_firewall_open": false,
         "is_review_server": false,
         "is_server_open": true,
-        "latest_release_version": "OB54",
+        "latest_release_version": "OB53",
         "login_download_optionalpack": "optionalclothres:shaders|optionalpetres:optionalpetres_commonab_shader|optionallobbyres:",
         "login_failed_count": 2,
         "max_store": "",
