@@ -40,8 +40,8 @@ const handleRequest = (req, res) => {
     const response = {
         "abhotupdate_cdn_url": `http://213.199.53.16:1020/cdn/live/ABHotUpdates/`,
         "abhotupdate_check": "cache_res;assetindexer;SH-Gpp",
-        "appstore_url": "https://whatsapp.com/channel/0029VavQZlNElagy5Z13in2a",
-        "backup_appstore_url": "https://whatsapp.com/channel/0029VavQZlNElagy5Z13in2a",
+        "appstore_url": "https://youtu.be/53U6N2ZSvHk?si=Q0VpYXn6Fn6mXoNE",
+        "backup_appstore_url": "https://youtu.be/53U6N2ZSvHk?si=Q0VpYXn6Fn6mXoNE",
         "backup_cdn_url": "https://dl.cdn.freefiremobile.com/live/ABHotUpdates/",
         "billboard_bg_url": "https://i.ibb.co/m5SHgKs9/file-00000000305c720ebd5cba80a9cb2b44.png",
         "billboard_cdn_url": "https://dl.dir.freefiremobile.com/common/OB54/CSH/patchupdate/sgolzjifnmi101.ff_extend;https://dl.dir.freefiremobile.com/common/OB54/CSH/patchupdate/sgolzjifnmi102.ff_extend;https://dl.dir.freefiremobile.com/common/OB54/CSH/patchupdate/sgolzjifnmi103.ff_extend;https://dl.dir.freefiremobile.com/common/OB54/CSH/patchupdate/sgolzjifnmi104.ff_extend;https://dl.dir.freefiremobile.com/common/OB54/CSH/patchupdate/sgolzjifnmi105.ff_extend;https://dl.dir.freefiremobile.com/common/OB54/CSH/patchupdate/sgolzjifnmi106.ff_extend;https://dl.dir.freefiremobile.com/common/OB54/CSH/patchupdate/sgolzjifnmi107.ff_extend",
